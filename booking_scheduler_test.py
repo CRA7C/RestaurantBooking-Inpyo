@@ -5,6 +5,8 @@ from booking_scheduler import BookingScheduler
 from communication_test import TestableSmsSender, TestableMailSender
 from schedule import Customer, Schedule
 
+CUSTOMER_WITH_MAIL = Customer("Fake Name", "010-1234-5678", "test@test.com")
+
 CAPACITY_PER_HOUR = 3
 
 UNDER_CAPACITY = 1
@@ -92,8 +94,7 @@ class BookingSchedulerTest(unittest.TestCase):
 
     def test_이메일이_있는_경우에는_이메일_발송(self):
         # arrange
-        customer_with_mail = Customer("Fake Name", "010-1234-5678", "test@test.com")
-        schedule = Schedule(ON_THE_HOUR, UNDER_CAPACITY, customer_with_mail)
+        schedule = Schedule(ON_THE_HOUR, UNDER_CAPACITY, CUSTOMER_WITH_MAIL)
 
         # act
         self.booking_scheduler.add_schedule(schedule)
