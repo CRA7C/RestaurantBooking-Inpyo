@@ -1,17 +1,19 @@
 import unittest
+from datetime import datetime
 
 from booking_scheduler import BookingScheduler
 from schedule import Customer, Schedule
+
+CUSTOMER = Customer("Fake name", "010-1234-5678")
+NOT_ON_THE_HOUR = datetime.strptime("2024/07/11 09:05", "%Y/%m/%d %H:%M")
+ON_THE_HOUR = datetime.strptime("2024/07/11 09:00", "%Y/%m/%d %H:%M")
 
 
 class BookingSchedulerTest(unittest.TestCase):
 
     def test_예약은_정시에만_가능하다_정시가_아닌경우_예약불가(self):
         # arrange
-        from datetime import datetime
-        not_on_the_hour = datetime.strptime("2024/07/11 09:05", "%Y/%m/%d %H:%M")
-        customer = Customer("Fake name", "010-1234-5678")
-        schedule = Schedule(not_on_the_hour, 1, customer)
+        schedule = Schedule(NOT_ON_THE_HOUR, 1, CUSTOMER)
         booking_scheduler = BookingScheduler(3)
 
         # act and assert
@@ -20,10 +22,7 @@ class BookingSchedulerTest(unittest.TestCase):
 
     def test_예약은_정시에만_가능하다_정시인_경우_예약가능(self):
         # arrange
-        from datetime import datetime
-        on_the_hour = datetime.strptime("2024/07/11 09:00", "%Y/%m/%d %H:%M")
-        customer = Customer("Fake name", "010-1234-5678")
-        schedule = Schedule(on_the_hour, 1, customer)
+        schedule = Schedule(ON_THE_HOUR, 1, Customer("Fake name", "010-1234-5678"))
         booking_scheduler = BookingScheduler(3)
 
         # act
