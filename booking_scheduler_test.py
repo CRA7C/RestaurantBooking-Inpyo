@@ -21,9 +21,9 @@ class BookingSchedulerTest(unittest.TestCase):
     def test_예약은_정시에만_가능하다_정시인_경우_예약가능(self):
         # arrange
         from datetime import datetime
-        not_on_the_hour = datetime.strptime("2024/07/11 09:00", "%Y/%m/%d %H:%M")
+        on_the_hour = datetime.strptime("2024/07/11 09:00", "%Y/%m/%d %H:%M")
         customer = Customer("Fake name", "010-1234-5678")
-        schedule = Schedule(not_on_the_hour, 1, customer)
+        schedule = Schedule(on_the_hour, 1, customer)
         booking_scheduler = BookingScheduler(3)
 
         # act
